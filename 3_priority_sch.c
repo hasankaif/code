@@ -9,7 +9,6 @@ int main() {
     int pid[n], at[n], bt[n], pr[n];
     int wt[n], tat[n], completed[n];
 
-    // Input
     for (i = 0; i < n; i++) {
         pid[i] = i + 1;
         printf("\nProcess %d:\n", pid[i]);
@@ -30,17 +29,15 @@ int main() {
     float total_wt = 0, total_tat = 0;
 
     while (done < n) {
-        int idx = -1;            //no process is selected yet
-        int highest_priority = 9999;        //large value, comparison purpose
-
-        // Find highest priority process
+        int idx = -1;    
+        int highest_priority = 9999;
         for (i = 0; i < n; i++) {
             if (at[i] <= time && completed[i] == 0) {
                 if (pr[i] < highest_priority) {
                     highest_priority = pr[i];
                     idx = i;
                 }
-                else if (pr[i] == highest_priority) {        //if same priority, then choose process with earlier arrival time
+                else if (pr[i] == highest_priority) {
                     if (at[i] < at[idx]) {
                         idx = i;
                     }
@@ -48,7 +45,7 @@ int main() {
             }
         }
 
-        if (idx != -1) {              //if a process is selected
+        if (idx != -1) {
             time += bt[idx];
 
             tat[idx] = time - at[idx];
@@ -60,11 +57,10 @@ int main() {
             completed[idx] = 1;
             done++;
         } else {
-            time++; // CPU idle
+            time++;
         }
     }
 
-    // Output
     printf("\nPID\tAT\tBT\tPR\tWT\tTAT\n");
     for (i = 0; i < n; i++) {
         printf("%d\t%d\t%d\t%d\t%d\t%d\n",

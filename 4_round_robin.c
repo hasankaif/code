@@ -21,7 +21,6 @@ int main() {
     printf("Enter Time Quantum: ");
     scanf("%d", &tq);
 
-    // Find first arrival time
     int min_at = at[0], first = 0;
     for (i = 1; i < n; i++) {
         if (at[i] < min_at) {
@@ -38,18 +37,17 @@ int main() {
 
     while (completed < n) {
         if (front == rear) {
-            // No process in ready queue. So, its needed to avoid the infinite loop of CPU
             for (i = 0; i < n; i++) {
                 if (done[i] == 0) {
                     queue[rear++] = i;
                     visited[i] = 1;
-                    time = at[i];     //jump time to its arrival(Suppose, at of P1 and P2 is 0,5 and BT of p1 and P2 is 2, 3)
+                    time = at[i];
                     break;
                 }
             }
         }
 
-        i = queue[front++]; // get process index //Dequeue the process
+        i = queue[front++];
 
         if (rt[i] > tq) {
             printf(" P%d |", i + 1);
@@ -66,7 +64,6 @@ int main() {
             completed++;
         }
 
-        // Enqueue newly arrived process
         for (j = 0; j < n; j++) {
             if (at[j] <= time && rt[j] > 0 && visited[j] == 0) {
                 queue[rear++] = j;
@@ -74,13 +71,11 @@ int main() {
             }
         }
 
-        // Re-enqueue current process(if not finished)
         if (rt[i] > 0) {
             queue[rear++] = i;
         }
     }
 
-    // Output
     float avgWT = 0, avgTAT = 0;
     printf("\n\nProcess\tAT\tBT\tCT\tTAT\tWT\n");
     for (i = 0; i < n; i++) {

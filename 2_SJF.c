@@ -24,7 +24,6 @@ int main() {
     while (completed != n) {
         smallest = -1;
 
-        // Find process with shortest burst time among arrived ones
         for (i = 0; i < n; i++) {
             if (!visited[i] && at[i] <= time) {
                 if (smallest == -1 || bt[i] < bt[smallest]) {
@@ -32,14 +31,11 @@ int main() {
                 }
             }
         }
-
-        // If no process has arrived yet, move time forward
         if (smallest == -1) {
             time++;
             continue;
         }
 
-        // Execute the selected job
         time += bt[smallest];
         ct[smallest] = time;
         tat[smallest] = ct[smallest] - at[smallest];
